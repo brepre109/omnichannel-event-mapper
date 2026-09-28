@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Omnichannel Event Mapper</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="logo">⇉</div>
+    <div>
+      <h1>Omnichannel Event Mapper</h1>
+      <p>Shopify · Amazon SP-API · TikTok Shop payloads → one canonical order timeline</p>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-tab="timeline" class="active">Timeline</button>
+    <button data-tab="try">Try your payload</button>
+    <button data-tab="coverage">Mapping coverage</button>
+    <button data-tab="rules">Mapping rules</button>
+  </nav>
+  <div class="actions">
+    <button id="btn-demo" class="ghost">Reload demo data</button>
+    <button id="btn-clear" class="ghost">Clear workspace</button>
+  </div>
+</header>
+
+<main>
+  <!-- TIMELINE -->
+  <section id="tab-timeline" class="tab active">
+    <div class="grid3">
+      <aside class="panel">
+        <h2>Orders <span class="count" id="order-count"></span></h2>
+        <div id="orders"></div>
+        <h2 class="mt">Ingested payloads <span class="count" id="source-count"></span></h2>
+        <ol id="sources" class="sources"></ol>
+      </aside>
+      <section class="panel center" id="order-view">
+        <div class="empty">Select an order.</div>
+      </section>
+      <aside class="panel">
+        <h2>Validation warnings <span class="count" id="warn-count"></span></h2>
+        <div class="seg" id="warn-scope">
+          <button data-scope="order" class="active">This order</button>
+          <button data-scope="all">All orders</button>
+        </div>
+        <div id="warnings"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- TRY -->
+  <section id="tab-try" class="tab">
+    <div class="grid2">
+      <section class="panel">
+        <h2>Paste or upload a payload</h2>
+        <p class="hint">Drop a webhook body, API response, or an Amazon flat-file report (TSV). The channel and
+          payload type are auto-detected by the rules in <code>mappings/*.yaml</code>. Edit it and the mapping
+          and warnings update live — try deleting a tracking number.</p>
+        <div class="row">
+          <label>Start from a sample
+            <select id="sample"><option value="">— choose —</option></select>
+          </label>
+          <label>Channel
+            <select id="channel"><option value="">Auto-detect</option></select>
+          </label>
+          <label class="file">Upload file<input type="file" id="file" accept=".json,.tsv,.txt"></label>
+        </div>
+        <label class="block">Delivery context <span class="hint">(JSON: webhook headers / URL path params, e.g.
+          {"X-Shopify-Topic": "orders/create"} or {"orderId": "…"})</span>
+          <input id="context" class="mono" placeholder="{}">
+        </label>
+        <textarea id="payload" class="mono" spellcheck="false" placeholder='{"id": 123, "line_items": [...]}'></textarea>
+        <div class="row">
+          <button id="btn-preview">Preview mapping</button>
+          <button id="btn-ingest" class="primary">Add to workspace</button>
+          <span id="try-status" class="hint"></span>
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Result</h2>
+        <div id="try-result" class="empty">Nothing mapped yet.</div>
+      </section>
+    </div>
+  </section>
+
+  <!-- COVERAGE -->
+  <section id="tab-coverage" class="tab">
+    <section class="panel">
+      <h2>Mapping coverage</h2>
+      <p class="hint">Which canonical fields each channel's rules can fill, and — over the payloads in the
+        workspace — how often the payload actually carried a value. <b>—</b> means no rule maps that field.</p>
+      <div id="coverage"></div>
+    </section>
+  </section>
+
+  <!-- RULES -->
+  <section id="tab-rules" class="tab">
+    <section class="panel">
+      <h2>Declarative mapping rules</h2>
+      <p class="hint">The whole integration for a channel is one YAML file. No channel-specific Python.</p>
+      <div class="seg" id="rule-files"></div>
+      <pre id="rule-text" class="code"></pre>
+      <h2 class="mt">Validation rules</h2>
+      <div id="rule-catalog"></div>
+    </section>
+  </section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
