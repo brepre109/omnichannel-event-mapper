@@ -1,0 +1,37 @@
+{
+  "label": "TikTok Shop Get Tracking 576461413038785752",
+  "channel": "tiktok",
+  "context": {
+    "order_id": "576461413038785752",
+    "path": "/fulfillment/202309/orders/576461413038785752/tracking"
+  },
+  "body": {
+    "code": 0,
+    "message": "Success",
+    "request_id": "20260906000000000000000000000002",
+    "data": {
+      "tracking": [
+        {
+          "description": "Delivered",
+          "update_time_millis": 1788636000000
+        },
+        {
+          "description": "Out for delivery",
+          "update_time_millis": 1788617100000
+        },
+        {
+          "description": "In transit - arrived at sort facility",
+          "update_time_millis": 1788513120000
+        },
+        {
+          "description": "Package picked up by carrier",
+          "update_time_millis": 1788450000000
+        },
+        {
+          "description": "Shipping label created",
+          "update_time_millis": 1788448200000
+        }
+      ]
+    }
+  }
+}

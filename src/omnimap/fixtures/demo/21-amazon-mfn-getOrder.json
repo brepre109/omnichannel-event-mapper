@@ -1,0 +1,31 @@
+{
+  "label": "Amazon getOrder 113-4827701-5550123 (MFN)",
+  "channel": "amazon",
+  "body": {
+    "payload": {
+      "AmazonOrderId": "113-4827701-5550123",
+      "PurchaseDate": "2026-09-02T02:14:07Z",
+      "LastUpdateDate": "2026-09-02T02:14:07Z",
+      "OrderStatus": "Unshipped",
+      "FulfillmentChannel": "MFN",
+      "SalesChannel": "Amazon.com",
+      "ShipServiceLevel": "Std Cont US Street Addr",
+      "OrderTotal": {
+        "CurrencyCode": "USD",
+        "Amount": "46.98"
+      },
+      "NumberOfItemsShipped": 0,
+      "NumberOfItemsUnshipped": 2,
+      "MarketplaceId": "ATVPDKIKX0DER",
+      "IsPrime": false,
+      "IsBusinessOrder": false,
+      "OrderType": "StandardOrder",
+      "ShippingAddress": {
+        "City": "Austin",
+        "StateOrRegion": "TX",
+        "PostalCode": "78704-1234",
+        "CountryCode": "US"
+      }
+    }
+  }
+}

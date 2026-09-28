@@ -1,0 +1,43 @@
+{
+  "label": "Amazon getOrderItems 113-4827701-5550123",
+  "channel": "amazon",
+  "body": {
+    "payload": {
+      "AmazonOrderId": "113-4827701-5550123",
+      "OrderItems": [
+        {
+          "ASIN": "B0EXAMPLE1",
+          "SellerSKU": "MUG-12-BLU",
+          "OrderItemId": "61452091735211",
+          "Title": "Stoneware Mug 12oz - Blue",
+          "QuantityOrdered": 1,
+          "QuantityShipped": 0,
+          "ItemPrice": {
+            "CurrencyCode": "USD",
+            "Amount": "24.99"
+          },
+          "ItemTax": {
+            "CurrencyCode": "USD",
+            "Amount": "0.00"
+          }
+        },
+        {
+          "ASIN": "B0EXAMPLE2",
+          "SellerSKU": "TEE-ORG-M",
+          "OrderItemId": "61452091735212",
+          "Title": "Organic Cotton Tee - M",
+          "QuantityOrdered": 1,
+          "QuantityShipped": 0,
+          "ItemPrice": {
+            "CurrencyCode": "USD",
+            "Amount": "21.99"
+          },
+          "ItemTax": {
+            "CurrencyCode": "USD",
+            "Amount": "0.00"
+          }
+        }
+      ]
+    }
+  }
+}

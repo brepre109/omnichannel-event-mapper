@@ -1,0 +1,16 @@
+{
+  "label": "TikTok Shop webhook ORDER_STATUS_CHANGE -> DELIVERED",
+  "channel": "tiktok",
+  "body": {
+    "type": 1,
+    "tts_notification_id": "7327112393057371910",
+    "shop_id": "7494000000000000099",
+    "timestamp": 1788636063,
+    "data": {
+      "order_id": "576461413038785752",
+      "order_status": "DELIVERED",
+      "is_on_hold_order": false,
+      "update_time": 1788636060
+    }
+  }
+}

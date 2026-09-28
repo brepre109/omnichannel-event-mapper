@@ -1,0 +1,168 @@
+{
+  "label": "Shopify fulfillments/create #1042",
+  "channel": "shopify",
+  "note": "#1042.2 is fulfilled from Amazon FBA inventory via Multi-Channel Fulfillment; its scans arrive from SP-API (file 20).",
+  "deliveries": [
+    {
+      "label": "Shopify fulfillments/create #1042.1",
+      "context": {
+        "X-Shopify-Topic": "fulfillments/create"
+      },
+      "body": {
+        "id": 4400001,
+        "admin_graphql_api_id": "gid://shopify/Fulfillment/4400001",
+        "order_id": 5550001042,
+        "name": "#1042.1",
+        "status": "success",
+        "created_at": "2026-09-01T15:40:00-04:00",
+        "updated_at": "2026-09-01T15:40:00-04:00",
+        "service": "manual",
+        "location_id": 61000001,
+        "shipment_status": null,
+        "tracking_company": "UPS",
+        "tracking_number": "1Z999AA10123456784",
+        "tracking_numbers": [
+          "1Z999AA10123456784"
+        ],
+        "tracking_url": "https://www.ups.com/track?tracknum=1Z999AA10123456784",
+        "tracking_urls": [
+          "https://www.ups.com/track?tracknum=1Z999AA10123456784"
+        ],
+        "line_items": [
+          {
+            "id": 13900000001,
+            "admin_graphql_api_id": "gid://shopify/LineItem/13900000001",
+            "variant_id": 44100000001,
+            "product_id": 44099999001,
+            "sku": "MUG-12-BLU",
+            "title": "Stoneware Mug 12oz - Blue",
+            "name": "Stoneware Mug 12oz - Blue",
+            "quantity": 2,
+            "current_quantity": 2,
+            "fulfillable_quantity": 2,
+            "fulfillment_status": null,
+            "price": "24.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "24.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "24.00",
+                "currency_code": "USD"
+              }
+            },
+            "requires_shipping": true,
+            "taxable": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "Shopify fulfillments/create #1042.2",
+      "context": {
+        "X-Shopify-Topic": "fulfillments/create"
+      },
+      "body": {
+        "id": 4400002,
+        "admin_graphql_api_id": "gid://shopify/Fulfillment/4400002",
+        "order_id": 5550001042,
+        "name": "#1042.2",
+        "status": "success",
+        "created_at": "2026-09-01T19:20:00-04:00",
+        "updated_at": "2026-09-01T19:20:00-04:00",
+        "service": "amazon-mcf-app",
+        "location_id": 61000002,
+        "shipment_status": null,
+        "tracking_company": "United Parcel Service",
+        "tracking_number": "1Z999AA10123456795",
+        "tracking_numbers": [
+          "1Z999AA10123456795"
+        ],
+        "tracking_url": "https://www.ups.com/track?tracknum=1Z999AA10123456795",
+        "tracking_urls": [
+          "https://www.ups.com/track?tracknum=1Z999AA10123456795"
+        ],
+        "line_items": [
+          {
+            "id": 13900000002,
+            "admin_graphql_api_id": "gid://shopify/LineItem/13900000002",
+            "variant_id": 44100000002,
+            "product_id": 44099999002,
+            "sku": "TEE-ORG-M",
+            "title": "Organic Cotton Tee - M",
+            "name": "Organic Cotton Tee - M",
+            "quantity": 1,
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_status": null,
+            "price": "32.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "32.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "32.00",
+                "currency_code": "USD"
+              }
+            },
+            "requires_shipping": true,
+            "taxable": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "Shopify fulfillments/create #1042.3",
+      "context": {
+        "X-Shopify-Topic": "fulfillments/create"
+      },
+      "body": {
+        "id": 4400003,
+        "admin_graphql_api_id": "gid://shopify/Fulfillment/4400003",
+        "order_id": 5550001042,
+        "name": "#1042.3",
+        "status": "success",
+        "created_at": "2026-09-02T10:20:00-04:00",
+        "updated_at": "2026-09-02T10:20:00-04:00",
+        "service": "manual",
+        "location_id": 61000001,
+        "shipment_status": null,
+        "tracking_company": "USPS",
+        "tracking_number": null,
+        "tracking_numbers": [],
+        "tracking_url": null,
+        "tracking_urls": [],
+        "line_items": [
+          {
+            "id": 13900000003,
+            "admin_graphql_api_id": "gid://shopify/LineItem/13900000003",
+            "variant_id": 44100000003,
+            "product_id": 44099999003,
+            "sku": "CAP-CANVAS",
+            "title": "Canvas Cap",
+            "name": "Canvas Cap",
+            "quantity": 1,
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_status": null,
+            "price": "22.00",
+            "price_set": {
+              "shop_money": {
+                "amount": "22.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "22.00",
+                "currency_code": "USD"
+              }
+            },
+            "requires_shipping": true,
+            "taxable": true
+          }
+        ]
+      }
+    }
+  ]
+}

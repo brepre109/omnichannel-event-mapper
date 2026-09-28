@@ -1,0 +1,29 @@
+{
+  "label": "Amazon confirmShipment 113-4827701-5550123 (MFN)",
+  "channel": "amazon",
+  "context": {
+    "orderId": "113-4827701-5550123",
+    "method": "POST",
+    "path": "/orders/v0/orders/113-4827701-5550123/shipmentConfirmation"
+  },
+  "body": {
+    "marketplaceId": "ATVPDKIKX0DER",
+    "packageDetail": {
+      "packageReferenceId": "1",
+      "carrierCode": "UPS",
+      "shippingMethod": "UPS Ground",
+      "trackingNumber": "1Z999AA10123456806",
+      "shipDate": "2026-09-02T21:05:00Z",
+      "orderItems": [
+        {
+          "orderItemId": "61452091735211",
+          "quantity": 1
+        },
+        {
+          "orderItemId": "61452091735212",
+          "quantity": 1
+        }
+      ]
+    }
+  }
+}

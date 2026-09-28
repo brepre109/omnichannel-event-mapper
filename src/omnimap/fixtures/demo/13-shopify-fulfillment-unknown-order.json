@@ -1,0 +1,35 @@
+{
+  "label": "Shopify fulfillments/create for an order never received",
+  "channel": "shopify",
+  "context": {
+    "X-Shopify-Topic": "fulfillments/create"
+  },
+  "body": {
+    "id": 4400077,
+    "admin_graphql_api_id": "gid://shopify/Fulfillment/4400077",
+    "order_id": 5550001038,
+    "name": "#1038.1",
+    "status": "success",
+    "created_at": "2026-09-02T08:00:00-04:00",
+    "updated_at": "2026-09-02T08:00:00-04:00",
+    "service": "manual",
+    "location_id": 61000001,
+    "shipment_status": null,
+    "tracking_company": "FedEx",
+    "tracking_number": "449044304137821",
+    "tracking_numbers": [
+      "449044304137821"
+    ],
+    "tracking_url": null,
+    "tracking_urls": [],
+    "line_items": [
+      {
+        "id": 13899990001,
+        "sku": "TEE-ORG-L",
+        "title": "Organic Cotton Tee - L",
+        "quantity": 1,
+        "price": "32.00"
+      }
+    ]
+  }
+}

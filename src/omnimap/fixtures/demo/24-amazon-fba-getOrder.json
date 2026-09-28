@@ -1,0 +1,31 @@
+{
+  "label": "Amazon getOrder 702-3319904-7781255 (FBA, amazon.ca)",
+  "channel": "amazon",
+  "body": {
+    "payload": {
+      "AmazonOrderId": "702-3319904-7781255",
+      "PurchaseDate": "2026-09-03T16:41:52Z",
+      "LastUpdateDate": "2026-09-03T16:41:52Z",
+      "OrderStatus": "Shipped",
+      "FulfillmentChannel": "AFN",
+      "SalesChannel": "Amazon.ca",
+      "ShipServiceLevel": "Std CA Dom",
+      "OrderTotal": {
+        "CurrencyCode": "CAD",
+        "Amount": "54.97"
+      },
+      "NumberOfItemsShipped": 0,
+      "NumberOfItemsUnshipped": 2,
+      "MarketplaceId": "A2EUQ1WTGCTBG2",
+      "IsPrime": false,
+      "IsBusinessOrder": false,
+      "OrderType": "StandardOrder",
+      "ShippingAddress": {
+        "City": "Toronto",
+        "StateOrRegion": "ON",
+        "PostalCode": "M5V 2T6",
+        "CountryCode": "CA"
+      }
+    }
+  }
+}

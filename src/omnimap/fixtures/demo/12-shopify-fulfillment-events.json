@@ -1,0 +1,136 @@
+{
+  "label": "Shopify fulfillment_events/create #1042.1",
+  "channel": "shopify",
+  "deliveries": [
+    {
+      "label": "Shopify fulfillment_events/create #1042.1 label_printed",
+      "context": {
+        "X-Shopify-Topic": "fulfillment_events/create"
+      },
+      "body": {
+        "id": 9900001,
+        "admin_graphql_api_id": "gid://shopify/FulfillmentEvent/9900001",
+        "fulfillment_id": 4400001,
+        "order_id": 5550001042,
+        "shop_id": 60000001,
+        "status": "label_printed",
+        "message": "Label printed",
+        "happened_at": "2026-09-01T15:41:00-04:00",
+        "created_at": "2026-09-01T15:41:00-04:00",
+        "updated_at": "2026-09-01T15:41:00-04:00",
+        "city": "Secaucus",
+        "province": "NJ",
+        "country": "US",
+        "zip": null,
+        "address1": null,
+        "latitude": null,
+        "longitude": null,
+        "estimated_delivery_at": "2026-09-04T20:00:00-07:00"
+      }
+    },
+    {
+      "label": "Shopify fulfillment_events/create #1042.1 in_transit",
+      "context": {
+        "X-Shopify-Topic": "fulfillment_events/create"
+      },
+      "body": {
+        "id": 9900002,
+        "admin_graphql_api_id": "gid://shopify/FulfillmentEvent/9900002",
+        "fulfillment_id": 4400001,
+        "order_id": 5550001042,
+        "shop_id": 60000001,
+        "status": "in_transit",
+        "message": "Picked up by carrier",
+        "happened_at": "2026-09-01T18:02:00-04:00",
+        "created_at": "2026-09-01T18:02:00-04:00",
+        "updated_at": "2026-09-01T18:02:00-04:00",
+        "city": "Secaucus",
+        "province": "NJ",
+        "country": "US",
+        "zip": null,
+        "address1": null,
+        "latitude": null,
+        "longitude": null,
+        "estimated_delivery_at": "2026-09-04T20:00:00-07:00"
+      }
+    },
+    {
+      "label": "Shopify fulfillment_events/create #1042.1 in_transit",
+      "context": {
+        "X-Shopify-Topic": "fulfillment_events/create"
+      },
+      "body": {
+        "id": 9900003,
+        "admin_graphql_api_id": "gid://shopify/FulfillmentEvent/9900003",
+        "fulfillment_id": 4400001,
+        "order_id": 5550001042,
+        "shop_id": 60000001,
+        "status": "in_transit",
+        "message": "Arrived at carrier facility",
+        "happened_at": "2026-09-03T21:10:00-07:00",
+        "created_at": "2026-09-03T21:10:00-07:00",
+        "updated_at": "2026-09-03T21:10:00-07:00",
+        "city": "Portland",
+        "province": "OR",
+        "country": "US",
+        "zip": null,
+        "address1": null,
+        "latitude": null,
+        "longitude": null,
+        "estimated_delivery_at": "2026-09-04T20:00:00-07:00"
+      }
+    },
+    {
+      "label": "Shopify fulfillment_events/create #1042.1 out_for_delivery",
+      "context": {
+        "X-Shopify-Topic": "fulfillment_events/create"
+      },
+      "body": {
+        "id": 9900004,
+        "admin_graphql_api_id": "gid://shopify/FulfillmentEvent/9900004",
+        "fulfillment_id": 4400001,
+        "order_id": 5550001042,
+        "shop_id": 60000001,
+        "status": "out_for_delivery",
+        "message": "Out for delivery",
+        "happened_at": "2026-09-04T07:55:00-07:00",
+        "created_at": "2026-09-04T07:55:00-07:00",
+        "updated_at": "2026-09-04T07:55:00-07:00",
+        "city": "Portland",
+        "province": "OR",
+        "country": "US",
+        "zip": null,
+        "address1": null,
+        "latitude": null,
+        "longitude": null,
+        "estimated_delivery_at": "2026-09-04T20:00:00-07:00"
+      }
+    },
+    {
+      "label": "Shopify fulfillment_events/create #1042.1 delivered",
+      "context": {
+        "X-Shopify-Topic": "fulfillment_events/create"
+      },
+      "body": {
+        "id": 9900005,
+        "admin_graphql_api_id": "gid://shopify/FulfillmentEvent/9900005",
+        "fulfillment_id": 4400001,
+        "order_id": 5550001042,
+        "shop_id": 60000001,
+        "status": "delivered",
+        "message": "Delivered, front door",
+        "happened_at": "2026-09-04T13:31:00-07:00",
+        "created_at": "2026-09-04T13:31:00-07:00",
+        "updated_at": "2026-09-04T13:31:00-07:00",
+        "city": "Portland",
+        "province": "OR",
+        "country": "US",
+        "zip": null,
+        "address1": null,
+        "latitude": null,
+        "longitude": null,
+        "estimated_delivery_at": null
+      }
+    }
+  ]
+}

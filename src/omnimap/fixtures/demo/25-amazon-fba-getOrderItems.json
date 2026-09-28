@@ -1,0 +1,43 @@
+{
+  "label": "Amazon getOrderItems 702-3319904-7781255",
+  "channel": "amazon",
+  "body": {
+    "payload": {
+      "AmazonOrderId": "702-3319904-7781255",
+      "OrderItems": [
+        {
+          "ASIN": "B0EXAMPLE3",
+          "SellerSKU": "CANDLE-CEDAR",
+          "OrderItemId": "70011223344551",
+          "Title": "Cedar Soy Candle",
+          "QuantityOrdered": 2,
+          "QuantityShipped": 2,
+          "ItemPrice": {
+            "CurrencyCode": "USD",
+            "Amount": "39.98"
+          },
+          "ItemTax": {
+            "CurrencyCode": "USD",
+            "Amount": "0.00"
+          }
+        },
+        {
+          "ASIN": "B0EXAMPLE4",
+          "SellerSKU": "CAP-CANVAS",
+          "OrderItemId": "70011223344552",
+          "Title": "Canvas Cap",
+          "QuantityOrdered": 1,
+          "QuantityShipped": 1,
+          "ItemPrice": {
+            "CurrencyCode": "CAD",
+            "Amount": "14.99"
+          },
+          "ItemTax": {
+            "CurrencyCode": "CAD",
+            "Amount": "0.00"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "label": "Amazon MCF getPackageTrackingDetails (Shopify #1042.2)",
+  "channel": "amazon",
+  "context": {
+    "packageNumber": 180021447
+  },
+  "body": {
+    "payload": {
+      "packageNumber": 180021447,
+      "trackingNumber": "1Z999AA10123456795",
+      "customerTrackingLink": null,
+      "carrierCode": "UPS",
+      "carrierPhoneNumber": null,
+      "carrierURL": "https://www.ups.com",
+      "shipDate": "2026-09-01T23:20:00Z",
+      "estimatedArrivalDate": "2026-09-05T03:00:00Z",
+      "shipToAddress": {
+        "city": "Portland",
+        "state": "OR",
+        "country": "US"
+      },
+      "currentStatus": "DELIVERED",
+      "trackingEvents": [
+        {
+          "eventDate": "2026-09-01T23:20:00Z",
+          "eventAddress": {
+            "city": "Tracy",
+            "state": "CA",
+            "country": "US"
+          },
+          "eventCode": "EVENT_101",
+          "eventDescription": "Carrier notified to pick up package."
+        },
+        {
+          "eventDate": "2026-09-02T02:45:00Z",
+          "eventAddress": {
+            "city": "Tracy",
+            "state": "CA",
+            "country": "US"
+          },
+          "eventCode": "EVENT_102",
+          "eventDescription": "Shipment picked up from seller's facility."
+        },
+        {
+          "eventDate": "2026-09-02T09:30:00Z",
+          "eventAddress": {
+            "city": "Sacramento",
+            "state": "CA",
+            "country": "US"
+          },
+          "eventCode": "EVENT_202",
+          "eventDescription": "Departure scan."
+        },
+        {
+          "eventDate": "2026-09-04T01:00:00Z",
+          "eventAddress": {
+            "city": "Portland",
+            "state": "OR",
+            "country": "US"
+          },
+          "eventCode": "EVENT_201",
+          "eventDescription": "Arrival scan."
+        },
+        {
+          "eventDate": "2026-09-04T15:20:00Z",
+          "eventAddress": {
+            "city": "Portland",
+            "state": "OR",
+            "country": "US"
+          },
+          "eventCode": "EVENT_302",
+          "eventDescription": "Out for delivery."
+        },
+        {
+          "eventDate": "2026-09-04T19:48:00Z",
+          "eventAddress": {
+            "city": "Portland",
+            "state": "OR",
+            "country": "US"
+          },
+          "eventCode": "EVENT_301",
+          "eventDescription": "Delivered."
+        }
+      ]
+    }
+  }
+}

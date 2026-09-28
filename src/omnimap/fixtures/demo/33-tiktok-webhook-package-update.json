@@ -1,0 +1,23 @@
+{
+  "label": "TikTok Shop webhook PACKAGE_UPDATE (informational)",
+  "channel": "tiktok",
+  "body": {
+    "type": 4,
+    "tts_notification_id": "7327112393057371911",
+    "shop_id": "7494000000000000099",
+    "timestamp": 1788447900,
+    "data": {
+      "sc_type": "COMBINE",
+      "role_type": "ROLE_SELLER",
+      "package_list": [
+        {
+          "package_id": "1152921506870911111",
+          "order_id_list": [
+            "576461413038785752"
+          ]
+        }
+      ],
+      "update_time": 1788447900
+    }
+  }
+}

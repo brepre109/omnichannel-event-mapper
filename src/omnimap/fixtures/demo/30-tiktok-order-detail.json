@@ -1,0 +1,117 @@
+{
+  "label": "TikTok Shop Get Order Detail 576461413038785752",
+  "channel": "tiktok",
+  "context": {
+    "path": "/order/202309/orders?ids=576461413038785752"
+  },
+  "body": {
+    "code": 0,
+    "message": "Success",
+    "request_id": "20260906000000000000000000000001",
+    "data": {
+      "orders": [
+        {
+          "id": "576461413038785752",
+          "status": "IN_TRANSIT",
+          "create_time": 1788373800,
+          "update_time": 1788451200,
+          "paid_time": 1788373840,
+          "rts_time": 1788451200,
+          "user_id": "7494000000000000001",
+          "buyer_email": "masked@example.com",
+          "delivery_option_name": "Standard shipping",
+          "shipping_provider": "Speedy Parcel Co",
+          "shipping_provider_id": "7208502187360519982",
+          "tracking_number": "SPC00042917",
+          "payment": {
+            "currency": "USD",
+            "sub_total": "57.97",
+            "shipping_fee": "4.99",
+            "tax": "0.00",
+            "total_amount": "62.96"
+          },
+          "recipient_address": {
+            "region_code": "US",
+            "postal_code": "85004",
+            "full_address": "(masked)",
+            "district_info": [
+              {
+                "address_level_name": "Country",
+                "address_name": "United States",
+                "address_level": "L0"
+              },
+              {
+                "address_level_name": "State",
+                "address_name": "Arizona",
+                "address_level": "L1"
+              },
+              {
+                "address_level_name": "City",
+                "address_name": "Phoenix",
+                "address_level": "L3"
+              }
+            ]
+          },
+          "packages": [
+            {
+              "id": "1152921506870911111"
+            }
+          ],
+          "line_items": [
+            {
+              "id": "576461413038785801",
+              "sku_id": "1729500000000011",
+              "seller_sku": "CANDLE-CEDAR",
+              "product_id": "1729500000000001",
+              "product_name": "Cedar Soy Candle",
+              "sku_name": "Default",
+              "original_price": "19.99",
+              "sale_price": "19.99",
+              "currency": "USD",
+              "package_id": "1152921506870911111",
+              "package_status": "SHIPPED",
+              "display_status": "IN_TRANSIT",
+              "tracking_number": "SPC00042917",
+              "shipping_provider_name": "Speedy Parcel Co",
+              "shipping_provider_id": "7208502187360519982"
+            },
+            {
+              "id": "576461413038785802",
+              "sku_id": "1729500000000011",
+              "seller_sku": "CANDLE-CEDAR",
+              "product_id": "1729500000000001",
+              "product_name": "Cedar Soy Candle",
+              "sku_name": "Default",
+              "original_price": "19.99",
+              "sale_price": "19.99",
+              "currency": "USD",
+              "package_id": "1152921506870911111",
+              "package_status": "SHIPPED",
+              "display_status": "IN_TRANSIT",
+              "tracking_number": "SPC00042917",
+              "shipping_provider_name": "Speedy Parcel Co",
+              "shipping_provider_id": "7208502187360519982"
+            },
+            {
+              "id": "576461413038785803",
+              "sku_id": "1729500000000012",
+              "seller_sku": "CAP-CANVAS",
+              "product_id": "1729500000000001",
+              "product_name": "Canvas Cap",
+              "sku_name": "Default",
+              "original_price": "17.99",
+              "sale_price": "17.99",
+              "currency": "USD",
+              "package_id": "1152921506870911111",
+              "package_status": "SHIPPED",
+              "display_status": "IN_TRANSIT",
+              "tracking_number": "SPC00042917",
+              "shipping_provider_name": "Speedy Parcel Co",
+              "shipping_provider_id": "7208502187360519982"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
