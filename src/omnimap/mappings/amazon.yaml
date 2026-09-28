@@ -1,0 +1,161 @@
+# Amazon Selling Partner API -> canonical records.
+# SP-API is pull-based: these are response bodies (getOrder, getOrderItems, getPackageTrackingDetails),
+# a request body the seller sends (confirmShipment), and rows of the FBA "Amazon Fulfilled Shipments"
+# flat-file report. Values that live in the URL path (orderId for confirmShipment) come from $ctx.
+channel: amazon
+label: Amazon
+payloads:
+  - type: orders-v0/getOrder
+    doc: https://developer-docs.amazon/sp-api/reference/getorder
+    detect:
+      - has: [payload.AmazonOrderId, payload.PurchaseDate]
+    emit:
+      - kind: order
+        root: payload
+        require: [external_id]
+        fields:
+          external_id: AmazonOrderId
+          display_name: AmazonOrderId
+          placed_at: {path: PurchaseDate, as: datetime}
+          status: OrderStatus
+          updated_at: {path: LastUpdateDate, as: datetime}
+          currency: OrderTotal.CurrencyCode
+          total: {path: OrderTotal.Amount, as: decimal}
+          # ShippingAddress is restricted data (needs a Restricted Data Token) except for these coarse
+          # fields, which is all the canonical schema keeps anyway.
+          customer.country: {path: ShippingAddress.CountryCode, as: upper}
+          customer.region: ShippingAddress.StateOrRegion
+          customer.postal_prefix: {path: ShippingAddress.PostalCode, as: postal_prefix}
+
+  - type: orders-v0/getOrderItems
+    doc: https://developer-docs.amazon/sp-api/reference/getorderitems
+    detect:
+      - has: [payload.AmazonOrderId, payload.OrderItems]
+    emit:
+      - kind: lines
+        root: payload
+        require: [order_ref]
+        fields:
+          order_ref: AmazonOrderId
+        lists:
+          lines:
+            each: OrderItems[*]
+            fields:
+              line_id: OrderItemId
+              sku: SellerSKU
+              title: Title
+              quantity: {path: QuantityOrdered, as: int}
+              # ItemPrice is the price for the whole line (selling price x QuantityOrdered), not per unit.
+              extended_price: {path: ItemPrice.Amount, as: decimal}
+              currency: ItemPrice.CurrencyCode
+
+  - type: orders-v0/confirmShipment (MFN)
+    doc: https://developer-docs.amazon/sp-api/reference/confirmshipment
+    detect:
+      - has: [packageDetail.packageReferenceId]
+      - has: [packageDetail.trackingNumber, packageDetail.orderItems]
+    emit:
+      - kind: shipment
+        require: [order_ref]
+        fields:
+          order_ref: {paths: [$ctx.orderId, $ctx.amazonOrderId]}   # POST /orders/v0/orders/{orderId}/shipmentConfirmation
+          shipment_id: {path: packageDetail.packageReferenceId, as: string}
+          name: {path: packageDetail.packageReferenceId, as: string}
+          carrier: {paths: [packageDetail.carrierName, packageDetail.carrierCode]}
+          service: packageDetail.shippingMethod
+          tracking_number: packageDetail.trackingNumber
+          shipped_at: {path: packageDetail.shipDate, as: datetime}
+          origin: {paths: [packageDetail.shipFromSupplySourceId, $ctx.shipFrom]}
+        lists:
+          lines:
+            each: packageDetail.orderItems[*]
+            fields:
+              line_id: orderItemId
+              quantity: {path: quantity, as: int}
+
+  - type: report/GET_AMAZON_FULFILLED_SHIPMENTS_DATA_GENERAL (FBA)
+    doc: https://developer-docs.amazon/sp-api/docs/report-type-values-fba
+    # A flat-file (TSV) report; each row is one shipped order item. Paste the TSV or a JSON list of rows.
+    detect:
+      - has: ["[0].amazon-order-id", "[0].shipment-id"]
+    emit:
+      - kind: shipment
+        root: "[*]"
+        require: [order_ref]
+        fields:
+          order_ref: amazon-order-id
+          shipment_id: shipment-id
+          name: shipment-id
+          carrier: carrier
+          service: ship-service-level
+          tracking_number: tracking-number
+          shipped_at: {path: shipment-date, as: datetime}
+          origin: fulfillment-center-id
+        lists:
+          lines:
+            each: "@"
+            fields:
+              line_id: amazon-order-item-id
+              sku: sku
+              quantity: {path: quantity-shipped, as: int}
+
+  - type: fulfillment-outbound-2020-07-01/getPackageTrackingDetails
+    doc: https://developer-docs.amazon/sp-api/reference/getpackagetrackingdetails
+    detect:
+      - has: [payload.packageNumber, payload.trackingEvents]
+      - has: [payload.trackingNumber, payload.trackingEvents]
+    emit:
+      - kind: tracking
+        root: payload
+        fields:
+          tracking_number: trackingNumber
+          carrier: carrierCode
+          # MCF packages join to a sales-channel shipment (e.g. a Shopify fulfillment) by tracking number
+        lists:
+          events:
+            each: trackingEvents[*]
+            fields:
+              occurred_at: {path: eventDate, as: datetime}
+              status:
+                path: eventCode
+                map:
+                  EVENT_101: label_created
+                  EVENT_102: in_transit
+                  EVENT_201: in_transit
+                  EVENT_202: in_transit
+                  EVENT_203: in_transit
+                  EVENT_204: in_transit
+                  EVENT_205: in_transit
+                  EVENT_206: in_transit
+                  EVENT_301: delivered
+                  EVENT_302: out_for_delivery
+                  EVENT_304: exception
+                  EVENT_306: exception
+                  EVENT_307: in_transit
+                  EVENT_308: out_for_delivery
+                  EVENT_309: exception
+                  EVENT_401: exception
+                  EVENT_402: exception
+                  EVENT_403: exception
+                  EVENT_404: exception
+                  EVENT_405: exception
+                  EVENT_406: exception
+                  EVENT_407: exception
+                  EVENT_408: exception
+                  EVENT_409: exception
+                  EVENT_411: exception
+                  EVENT_412: exception
+                  EVENT_413: exception
+                  EVENT_414: exception
+                  EVENT_415: exception
+                  EVENT_416: exception
+                  EVENT_417: exception
+                  EVENT_418: exception
+                  EVENT_419: exception
+                  EVENT_801: delivered        # delivered to locker
+                  EVENT_804: delivered        # picked up from locker
+                map_default: unknown
+              description: {paths: [eventDescription, eventCode]}
+              city: eventAddress.city
+              region: eventAddress.state
+              country: eventAddress.country

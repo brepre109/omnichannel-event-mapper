@@ -1,0 +1,102 @@
+# Shopify Admin REST webhooks -> canonical records.
+# The webhook topic arrives in the X-Shopify-Topic header, so it is read from the delivery context
+# ($ctx.topic / ctx: {topic: ...}). Shape-based detection is the fallback for pasted payloads.
+channel: shopify
+label: Shopify
+payloads:
+  - type: orders/create
+    doc: https://shopify.dev/docs/api/admin-rest/latest/resources/order
+    detect:
+      - ctx: {x-shopify-topic: orders/create}
+      - ctx: {topic: orders/create}
+      - has: [order_number, line_items]
+    emit:
+      - kind: order
+        require: [external_id]
+        fields:
+          external_id: {path: id, as: string}
+          display_name: name
+          placed_at: {path: created_at, as: datetime}
+          status: {paths: [fulfillment_status, financial_status]}
+          updated_at: {path: updated_at, as: datetime}
+          currency: currency
+          total: {path: total_price, as: decimal}
+          customer.country: {paths: [shipping_address.country_code, billing_address.country_code], as: upper}
+          customer.region: {paths: [shipping_address.province_code, billing_address.province_code]}
+          customer.postal_prefix: {paths: [shipping_address.zip, billing_address.zip], as: postal_prefix}
+        lists:
+          lines:
+            each: line_items[*]
+            fields:
+              line_id: {path: id, as: string}
+              sku: sku
+              title: title
+              quantity: {path: quantity, as: int}
+              unit_price: {path: price, as: decimal}
+              currency: {paths: [price_set.shop_money.currency_code, ^.currency]}
+
+  - type: fulfillments/create
+    doc: https://shopify.dev/docs/api/admin-rest/latest/resources/fulfillment
+    detect:
+      - ctx: {x-shopify-topic: fulfillments/create}
+      - ctx: {topic: fulfillments/create}
+      - ctx: {x-shopify-topic: fulfillments/update}
+      - ctx: {topic: fulfillments/update}
+      - has: [order_id, line_items, tracking_company]
+      - has: [order_id, line_items, tracking_numbers]
+    emit:
+      - kind: shipment
+        require: [order_ref]
+        fields:
+          order_ref: {path: order_id, as: string}
+          shipment_id: {path: id, as: string}
+          name: name
+          carrier: tracking_company
+          service: service
+          tracking_number: {paths: [tracking_number, "tracking_numbers[0]"]}
+          shipped_at: {path: created_at, as: datetime}
+          origin: {path: location_id, as: string}
+        lists:
+          lines:
+            each: line_items[*]
+            fields:
+              line_id: {path: id, as: string}
+              sku: sku
+              quantity: {path: quantity, as: int}
+
+  - type: fulfillment_events/create
+    doc: https://shopify.dev/docs/api/admin-rest/latest/resources/fulfillmentevent
+    detect:
+      - ctx: {x-shopify-topic: fulfillment_events/create}
+      - ctx: {topic: fulfillment_events/create}
+      - has: [fulfillment_id, happened_at, status]
+    emit:
+      - kind: tracking
+        fields:
+          order_ref: {path: order_id, as: string}
+          shipment_ref: {path: fulfillment_id, as: string}
+        lists:
+          events:
+            each: "@"
+            fields:
+              occurred_at: {path: happened_at, as: datetime}
+              status:
+                path: status
+                map:
+                  label_printed: label_created
+                  label_purchased: label_created
+                  confirmed: label_created
+                  ready_for_pickup: in_transit
+                  picked_up: in_transit
+                  in_transit: in_transit
+                  carrier_picked_up: in_transit
+                  out_for_delivery: out_for_delivery
+                  attempted_delivery: exception
+                  delayed: exception
+                  failure: exception
+                  delivered: delivered
+                map_default: unknown
+              description: {paths: [message, status]}
+              city: city
+              region: province
+              country: country

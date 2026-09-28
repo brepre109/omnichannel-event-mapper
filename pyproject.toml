@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omnichannel-event-mapper"
+version = "0.1.0"
+description = "Map Shopify, Amazon SP-API and TikTok Shop order/shipment payloads onto one canonical schema with declarative rules."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Brett Prejeant"}]
+requires-python = ">=3.10"
+dependencies = ["flask>=3.0", "pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+omnimap = "omnimap.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+omnimap = ["mappings/*.yaml", "fixtures/demo/*", "static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

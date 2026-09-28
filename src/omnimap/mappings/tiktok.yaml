@@ -1,0 +1,111 @@
+# TikTok Shop Partner API (version 202309) -> canonical records.
+# Order Detail and Get Tracking are pull APIs; ORDER_STATUS_CHANGE (type 1) and PACKAGE_UPDATE (type 4)
+# are webhooks with the envelope {type, tts_notification_id, shop_id, timestamp, data}.
+# Timestamps are Unix epoch: seconds on orders/webhooks, milliseconds on tracking.
+channel: tiktok
+label: TikTok Shop
+payloads:
+  - type: order/202309/orders (Get Order Detail)
+    doc: https://partner.tiktokshop.com/docv2/page/650aa8ccc16ffe02b8f167a0
+    detect:
+      - has: ["data.orders[0].id", "data.orders[0].line_items"]
+    emit:
+      - kind: order
+        root: data.orders[*]
+        require: [external_id]
+        fields:
+          external_id: id
+          display_name: id
+          placed_at: {path: create_time, as: datetime, format: epoch_s}
+          status: status
+          updated_at: {path: update_time, as: datetime, format: epoch_s}
+          currency: payment.currency
+          total: {path: payment.total_amount, as: decimal}
+          customer.country: {path: recipient_address.region_code, as: upper}
+          customer.region: "recipient_address.district_info[address_level=L1].address_name"
+          customer.postal_prefix: {path: recipient_address.postal_code, as: postal_prefix}
+        lists:
+          lines:
+            # TikTok line items have no quantity: every unit is its own line item.
+            each: line_items[*]
+            fields:
+              line_id: id
+              sku: {paths: [seller_sku, sku_id]}
+              title: product_name
+              quantity: {const: 1, as: int}
+              unit_price: {path: sale_price, as: decimal}
+              currency: currency
+      # Packages are not separate objects in Order Detail: each line item names its package, tracking
+      # number and provider. One shipment record per line item; the workspace merges them by package id.
+      - kind: shipment
+        root: data.orders[*].line_items[*]
+        require: [shipment_id]
+        skip_if_missing: true      # unshipped line items have no package yet
+        fields:
+          order_ref: ^.id
+          shipment_id: package_id
+          name: package_id
+          carrier: shipping_provider_name
+          tracking_number: tracking_number
+          # Order Detail has no per-package ship time; rts_time (seller marked ready-to-ship) is the
+          # closest documented timestamp.
+          shipped_at: {path: ^.rts_time, as: datetime, format: epoch_s}
+        lists:
+          lines:
+            each: "@"
+            fields:
+              line_id: id
+              sku: {paths: [seller_sku, sku_id]}
+              quantity: {const: 1, as: int}
+
+  - type: fulfillment/202309/orders/{order_id}/tracking (Get Tracking)
+    doc: https://partner.tiktokshop.com/docv2/page/650aa630c16ffe02b8f11803
+    detect:
+      - has: ["data.tracking[0].update_time_millis"]
+    emit:
+      - kind: tracking
+        root: data
+        fields:
+          # The order id is in the URL path, so it comes from the delivery context. Events are per
+          # order: they attach to the package only when the order has exactly one.
+          order_ref: {paths: [$ctx.order_id, $ctx.orderId]}
+        lists:
+          events:
+            each: tracking[*]
+            fields:
+              occurred_at: {path: update_time_millis, as: datetime, format: epoch_ms}
+              description: description
+              status:
+                path: description
+                contains:
+                  out for delivery: out_for_delivery
+                  delivered: delivered
+                  label created: label_created
+                  shipping label: label_created
+                  exception: exception
+                  failed: exception
+                  returned: exception
+                contains_default: in_transit
+
+  - type: webhook type 1 ORDER_STATUS_CHANGE
+    doc: https://partner.tiktokshop.com/docv2/page/650300b8a57708028b430b4a
+    detect:
+      - equals: {type: 1}
+        has: [data.order_id]
+    emit:
+      - kind: order
+        root: data
+        require: [external_id]
+        fields:
+          external_id: order_id
+          status: order_status
+          updated_at: {path: update_time, as: datetime, format: epoch_s}
+
+  - type: webhook type 4 PACKAGE_UPDATE
+    doc: https://partner.tiktokshop.com/docv2/page/650955cabace3e02b73cc886
+    # Signals a package combine/split; carries no tracking. Recognised so it is not reported as unknown,
+    # but mapped to nothing: the integration should re-fetch Order Detail for the listed orders.
+    detect:
+      - equals: {type: 4}
+        has: [data.package_list]
+    emit: []

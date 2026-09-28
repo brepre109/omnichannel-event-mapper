@@ -1,0 +1,32 @@
+# Carrier normalisation table.
+# Matching ignores case, spaces and punctuation, so "U.P.S." == "ups" == "UPS".
+# Add the spelling a channel actually sends to `aliases`; the code on the left is what the canonical
+# schema stores. Unknown spellings raise an `unknown_carrier` warning instead of guessing.
+carriers:
+  ups:
+    name: UPS
+    aliases: [United Parcel Service, UPS Ground, UPS Mail Innovations, UPSN]
+  usps:
+    name: USPS
+    aliases: [United States Postal Service, US Postal Service, U.S. Postal Service, USPS First Class, Stamps.com]
+  fedex:
+    name: FedEx
+    aliases: [Federal Express, FedEx Ground, FedEx Home Delivery, FDX, FDXG, FEDEX_GROUND]
+  dhl_ecommerce:
+    name: DHL eCommerce
+    aliases: [DHL eCommerce Solutions, DHL Global Mail, DHLGM]
+  dhl_express:
+    name: DHL Express
+    aliases: [DHL]
+  amazon_logistics:
+    name: Amazon Logistics
+    aliases: [AMZN_US, AMZL, AMZL_US, Amazon Shipping]
+  ontrac:
+    name: OnTrac
+    aliases: [OnTrac Logistics, LaserShip]
+  canada_post:
+    name: Canada Post
+    aliases: [Postes Canada, CanadaPost]
+  royal_mail:
+    name: Royal Mail
+    aliases: [RoyalMail]
